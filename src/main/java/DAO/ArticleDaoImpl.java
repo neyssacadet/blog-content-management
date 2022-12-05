@@ -34,7 +34,8 @@ public class ArticleDaoImpl implements ArticleDao {
     @Override
     public List<Article> getAllArticles() {
         final String GET_ARTICLES = "SELECT * FROM Article;";
-        List<Article> articles = jdbc.query(GET_ARTICLES)
+        List<Article> articles = jdbc.query(GET_ARTICLES, new ArticleMapper());
+        return articles;
     }
 
     @Override
