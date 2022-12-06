@@ -21,8 +21,9 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
     
     private static final String[] WHITELIST = {
-        "/register",
+        "/register/**",
         "/login",
+        "/h2-console/**",
         "/"
             
     };
@@ -35,6 +36,11 @@ public class WebSecurityConfig {
                 // permit everyone to view articles (method GET)
                 .antMatchers(HttpMethod.GET,"/articles/*").permitAll()
                 .anyRequest().authenticated();
+       
+        //can be removed if not using h2-console
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
+        
         return http.build();
     }
 }
