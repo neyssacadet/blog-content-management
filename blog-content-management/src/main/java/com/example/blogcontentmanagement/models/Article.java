@@ -34,23 +34,33 @@ public class Article {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long articleId;
+    private Long id;
     
     private String title;
     
     @Column(columnDefinition = "TEXT")
     private String content;
-    
-    
-   
+           
     private LocalDateTime articleCreated;
+    
+    private LocalDateTime articleUpdated;
     
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "account", referencedColumnName = "accountId", nullable =false)
+    @JoinColumn(name = "account", referencedColumnName = "id", nullable =false)
     private Account account;
+    
+    @Override
+    public String toString() {
+        return "Article{" +
+            "id=" + id +
+            ", title='" + title + "'" +
+            ", content='" + content + "'" +
+            ", articleCreated='" + articleCreated + "'" +
+            ", articleUpdated=" + articleUpdated +
+        "}";
    
-
+    }
      
     
     

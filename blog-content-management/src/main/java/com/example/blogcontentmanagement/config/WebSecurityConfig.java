@@ -10,6 +10,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 /**
@@ -20,9 +22,14 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled =true)
 public class WebSecurityConfig {
     
+    @Bean
+    public static PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+    
     private static final String[] WHITELIST = {
         "/register/**",
-        "/login",
+        
         "/h2-console/**",
         "/"
             
@@ -36,6 +43,24 @@ public class WebSecurityConfig {
                 // permit everyone to view articles (method GET)
                 .antMatchers(HttpMethod.GET,"/articles/*").permitAll()
                 .anyRequest().authenticated();
+        
+        // login handling 
+        http
+                .formLogin()
+                    .loginPage("/login")
+                    .loginProcessingUrl("/login")
+                    .usernameParameter("email")
+                    .passwordParameter("password")
+                    .defaultSuccessUrl("/", true)
+                    .failureUrl("/login?error")
+                    .permitAll()
+                    .and()
+                    .logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login?logout")
+                    .and()
+                    .httpBasic();
+                
        
         //can be removed if not using h2-console
         http.csrf().disable();

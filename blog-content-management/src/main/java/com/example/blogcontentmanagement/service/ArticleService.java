@@ -27,8 +27,8 @@ public class ArticleService {
     private ArticleRepository articleRepository;
     
     // return one article by post id
-    public Optional<Article> getById(Long articleId){
-       return articleRepository.findById(articleId); 
+    public Optional<Article> getById(Long id){
+       return articleRepository.findById(id); 
     }
     
     // return all articles
@@ -38,11 +38,13 @@ public class ArticleService {
     
     // save article
     public Article save (Article article){
-        if (article.getArticleId() == null) {
+        if (article.getId() == null) {
             article.setArticleCreated(LocalDateTime.now());
         }
-        
+        article.setArticleUpdated(LocalDateTime.now());
         return articleRepository.save(article);
     }
+    
+    public void delete (Article article) { articleRepository.delete(article); }
     
 }

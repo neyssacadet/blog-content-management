@@ -17,19 +17,30 @@
     
     <div class="articles-container">
         <div class="article" th:each="article : ${articles}">
-            <h2><a th:href="@{'/articles/' + ${article.articleId}}" th:text="${article.title}">Title</a></h2>
+            <h2><a th:href="@{'/articles/' + ${article.id}}" th:text="${article.title}">Title</a></h2>
             <h5 th:text="'Written by ' + ${article.account.firstName}">Account First Name</h5>
             <h5 th:text="'Published at ' + ${article.articleCreated}">Created At</h5>
+            <h5 th:text="'Last Updated on ' + ${article.articleUpdated}">Updated on</h5>
             <p th:text="${article.content}">body text</p>
             <br>
         </div>
     </div>
     <hr />
    
-    <ul>
+    <ul sec:authorize="!isAuthenticated()">
         <li><a th:href="@{/register}">Register</a></li>
         <li><a th:href="@{/login}">Login</a></li>
     </ul>
+    <div sec:authorize="isAuthenticated()">
+        <form action="#"
+              th:action="@{/logout}"
+              method="POST">
+            <div>
+                <label>Hi, <span sec:authentication="name">Username</span></label>
+            </div>
+            <button type="submit">Logout</button>
+        </form>
+    </div>
 
 </div>
 

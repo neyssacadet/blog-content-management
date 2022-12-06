@@ -15,8 +15,14 @@
             <h2 th:text="${article.title}">Title</h2>
             <h5 th:text="'Written by ' + ${article.account.firstName}">Account First Name</h5>
             <h5 th:text="'Created at ' + ${article.articleCreated}">Created At</h5>
+            <h5 th:text="'Last Updated on ' + ${article.articleUpdated}">Updated on</h5>
             <p th:text="${article.content}">body text</p>
         </div>
+        <ul sec:authorize="isAuthenticated()">
+            <li><a th:href="@{'/articles/' + ${article.id} + '/edit'}">Edit</a></li>
+            <li><a th:href="@{'/articles/' + ${article.id} + '/delete'}">Delete</a></li>
+        </ul>
+        
         
     </div>
 
