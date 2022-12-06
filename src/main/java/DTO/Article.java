@@ -71,13 +71,25 @@ public class Article {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Article)) return false;
-        Article article = (Article) o;
-        return articleID == article.articleID && Objects.equals(title, article.title) && Objects.equals(body, article.body) && Objects.equals(author, article.author) && Objects.equals(createdOn, article.createdOn) && Objects.equals(postOn, article.postOn) && Objects.equals(expiredOn, article.expiredOn);
+        if (!(o instanceof Article article)) return false;
+        return articleID == article.articleID && title.equals(article.title) && body.equals(article.body) && author.equals(article.author) && createdOn.equals(article.createdOn) && postOn.equals(article.postOn) && expiredOn.equals(article.expiredOn);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(articleID, title, body, author, createdOn, postOn, expiredOn);
+    }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "articleID=" + articleID +
+                ", title='" + title + '\'' +
+                ", body='" + body + '\'' +
+                ", author='" + author + '\'' +
+                ", createdOn=" + createdOn +
+                ", postOn=" + postOn +
+                ", expiredOn=" + expiredOn +
+                '}';
     }
 }

@@ -21,10 +21,10 @@ public class ArticleDaoImpl implements ArticleDao {
     @Autowired
     UserDao userDao;
 
-    /*@Autowired
+    @Autowired
     public ArticleDaoImpl(UserDao userDao) {
         this.userDao = userDao;
-    }*/
+    }
 
     @Override
     @Transactional
