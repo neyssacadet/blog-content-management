@@ -1,13 +1,13 @@
 package DAO;
 
-import BlogContentManagement.TestApplicationConfiguration;
-import DTO.Article;
+import com.sg.DTO.Article;
+import com.sg.DAO.ArticleDao;
+import com.sg.TestApplicationConfiguration;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
 import java.util.List;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @SpringBootTest(classes = TestApplicationConfiguration.class)
 public class ArticleDaoTest {
     @Autowired
-    ArticleDaoImpl articleDao;
+    ArticleDao articleDao;
 
     public ArticleDaoTest(){
 
