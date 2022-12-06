@@ -2,6 +2,7 @@ package DAO;
 
 import DTO.Article;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -20,15 +21,27 @@ public class ArticleDaoImpl implements ArticleDao {
     @Autowired
     UserDao userDao;
 
-    @Autowired
+    /*@Autowired
     public ArticleDaoImpl(UserDao userDao) {
         this.userDao = userDao;
-    }
+    }*/
 
     @Override
     @Transactional
     public Article addArticle(Article article) {
-        return null;
+        final String ADD_ARTICLE = "INSERT INTO Article(title, body, author, createdOn, postOn, expireOn)" +
+                "VALUES(?,?,?,?,?,?);";
+        jdbc.update(ADD_ARTICLE,
+                article.getTitle(),
+                article.getBody(),
+                article.getAuthor(),
+                article.getCreatedOn(),
+                article.getPostOn(),
+                article.getExpiredOn());
+
+        int newID = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+        article.setArticleID(newID);
+        return article;
     }
 
     @Override
@@ -39,8 +52,13 @@ public class ArticleDaoImpl implements ArticleDao {
     }
 
     @Override
-    public List<Article> getArticlesByID(int articleID) {
-        return null;
+    public Article getArticlesByID(int articleID) {
+        try{
+            final String GET_ARTICLE_BY_ID = "SELECT * FROM Article WHERE articleID = ?;";
+            return jdbc.queryForObject(GET_ARTICLE_BY_ID, new ArticleMapper(), articleID);
+        } catch (DataAccessException ex){
+            return null;
+        }
     }
 
     @Override
@@ -55,12 +73,23 @@ public class ArticleDaoImpl implements ArticleDao {
 
     @Override
     public void updateArticle(Article article) {
-
+        final String UPDATE_ARTICLE = "UPDATE Article SET title = ?, body = ?, author = ? WHERE articleID = ?;";
+        jdbc.update(UPDATE_ARTICLE,
+                article.getTitle(),
+                article.getBody(),
+                article.getAuthor());
     }
 
     @Override
-    public void deleteArticle(Article article) {
+    public void deleteArticle(int articleID) {
+        final String DELETE_ARTICLE_TAG = "DELETE FROM ArticleTag WHERE articleID = ?;";
+        jdbc.update(DELETE_ARTICLE_TAG, articleID);
 
+        final String DELETE_ARTICLE_COMMENT = "DELETE FROM ArticleComments WHERE articleID = ?;";
+        jdbc.update(DELETE_ARTICLE_COMMENT, articleID);
+
+        final String DELETE_ARTICLE = "DELETE FROM Article WHERE articleID = ?;";
+        jdbc.update(DELETE_ARTICLE, articleID);
     }
 
     final public static class ArticleMapper implements RowMapper<Article>{

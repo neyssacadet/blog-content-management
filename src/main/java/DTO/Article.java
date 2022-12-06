@@ -1,6 +1,7 @@
 package DTO;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Article {
     private int articleID;
@@ -65,5 +66,18 @@ public class Article {
 
     public void setExpiredOn(Date expiredOn) {
         this.expiredOn = expiredOn;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Article)) return false;
+        Article article = (Article) o;
+        return articleID == article.articleID && Objects.equals(title, article.title) && Objects.equals(body, article.body) && Objects.equals(author, article.author) && Objects.equals(createdOn, article.createdOn) && Objects.equals(postOn, article.postOn) && Objects.equals(expiredOn, article.expiredOn);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(articleID, title, body, author, createdOn, postOn, expiredOn);
     }
 }

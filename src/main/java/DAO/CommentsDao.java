@@ -1,4 +1,4 @@
 package DAO;
 
-public class CommentsDao {
+public interface CommentsDao {
 }
