@@ -6,6 +6,7 @@
 package com.example.blogcontentmanagement.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -20,7 +21,10 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
     
     private static final String[] WHITELIST = {
+        "/register",
+        "/login",
         "/"
+            
     };
     
     @Bean
@@ -28,6 +32,8 @@ public class WebSecurityConfig {
         http
                 .authorizeRequests()
                 .antMatchers(WHITELIST).permitAll()
+                // permit everyone to view articles (method GET)
+                .antMatchers(HttpMethod.GET,"/articles/*").permitAll()
                 .anyRequest().authenticated();
         return http.build();
     }
