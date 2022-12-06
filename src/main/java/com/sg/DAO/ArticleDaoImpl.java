@@ -69,7 +69,8 @@ public class ArticleDaoImpl implements ArticleDao {
         jdbc.update(UPDATE_ARTICLE,
                 article.getTitle(),
                 article.getBody(),
-                article.getAuthor());
+                article.getAuthor(),
+                article.getArticleID());
     }
 
     @Override
