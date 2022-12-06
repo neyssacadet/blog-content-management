@@ -1,7 +1,7 @@
 DROP DATABASE IF EXISTS blogContentDBScriptTest;
 CREATE DATABASE blogContentDBScriptTest;
 
-USE blogContentDBScript;
+USE blogContentDBScriptTest;
 
 CREATE TABLE User (
     	userID INT PRIMARY KEY AUTO_INCREMENT,

@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blog :: Login</title>
+</head>
+<body>
+<div class="container">
+        
+        <a th:href="@{/}">Home</a>
+        <form action="#"
+              th:action="@{'/articles/new'}"
+              th:object="${article}"
+              method="POST">
+              
+            <input type="hidden" th:field="*{account}" />
+            <input type="hidden" th:field="*{articleCreated}" />
+            <h2>Write new Article</h2>
+            <div>
+                <label for="new-article-title">Title</label>
+                <input id="new-article-title" type="text" th:field="*{title}" placeholder="Title"/>
+            </div>
+            <div>
+                <label for="new-article-content">Content</label>
+                <textarea id="new-article-content" th:field="*{content}"></textarea>
+            </div>
+            <button type="submit">Publish Post</button>
+        </form>
+        
+    </div>
+</body>
+</html>
