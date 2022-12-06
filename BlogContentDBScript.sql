@@ -3,6 +3,11 @@ CREATE DATABASE blogContentDBScript;
 
 USE blogContentDBScript;
 
+CREATE TABLE Role (
+    roleID INT PRIMARY KEY AUTO_INCREMENT,
+    role VARCHAR(30) NOT NULL
+);
+
 CREATE TABLE User (
     	userID INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL,
@@ -13,7 +18,6 @@ CREATE TABLE User (
     email VARCHAR(50),
     createdOn DATETIME NOT NULL DEFAULT NOW()
 );
-
 
 CREATE TABLE Article (
     	articleID INT PRIMARY KEY AUTO_INCREMENT,
@@ -32,6 +36,17 @@ CREATE TABLE Tag (
     addedOn VARCHAR(50) NOT NULL
 );
 
+CREATE TABLE Comments (
+	commentsID INT PRIMARY KEY AUTO_INCREMENT,
+    text TEXT NOT NULL,
+    user VARCHAR(255) NOT NULL,
+    userEmail VARCHAR(255) NOT NULL,
+    addedOn VARCHAR(50) NOT NULL,
+    articleID INT NOT NULL,
+    	FOREIGN KEY (articleID) 
+    	REFERENCES Article(articleID)
+);
+
 CREATE TABLE ArticleTag (
   	articleID INT NOT NULL,
   tagID INT NOT NULL,
@@ -43,16 +58,15 @@ CREATE TABLE ArticleTag (
     REFERENCES Tag(tagID)
 );
 
-
-CREATE TABLE Comments (
-	commentsID INT PRIMARY KEY AUTO_INCREMENT,
-    text TEXT NOT NULL,
-    user VARCHAR(255) NOT NULL,
-    userEmail VARCHAR(255) NOT NULL,
-    addedOn VARCHAR(50) NOT NULL,
-    articleID INT NOT NULL,
-    FOREIGN KEY (articleID) 
-    REFERENCES Article(articleID)
+CREATE TABLE UserRole (
+    roleID INT NOT NULL,
+    userID INT NOT NULL,
+    PRIMARY KEY (roleID, userID),
+    CONSTRAINT fk_UserRole
+    	FOREIGN KEY (roleID)
+        REFERENCES Role(roleID),
+    	FOREIGN KEY (userID)
+        REFERENCES User(userID)
 );
 
 CREATE TABLE ArticleComments (
