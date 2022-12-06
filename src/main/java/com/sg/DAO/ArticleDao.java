@@ -22,7 +22,7 @@ public interface ArticleDao {
 
     public Article getArticlesByID(int articleID);
 
-    public List<Article> getArticlesByUser(int userID);
+    public List<Article> getArticlesByUser(String username);
 
     public List<Article> getArticlesByTag (int tagID);
 

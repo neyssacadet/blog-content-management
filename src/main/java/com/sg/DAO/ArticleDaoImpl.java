@@ -18,6 +18,9 @@ public class ArticleDaoImpl implements ArticleDao {
     @Autowired
     JdbcTemplate jdbc;
 
+    @Autowired
+    UserDao userDao;
+
     @Override
     @Transactional
     public Article addArticle(Article article) {
@@ -54,7 +57,7 @@ public class ArticleDaoImpl implements ArticleDao {
     }
 
     @Override
-    public List<Article> getArticlesByUser(int userID) {
+    public List<Article> getArticlesByUser(String username) {
         return null;
     }
 

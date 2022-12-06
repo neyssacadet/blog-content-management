@@ -1,4 +1,4 @@
 package com.sg.DAO;
 
-public class UserDaoImpl {
+public class UserDaoImpl implements UserDao{
 }
