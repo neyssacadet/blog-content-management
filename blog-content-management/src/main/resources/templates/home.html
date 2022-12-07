@@ -11,7 +11,7 @@
 <div class="container">
     <h1>Spring Boot Blog Application</h1>
     <hr />
-    <ul>
+    <ul sec:authorize="isAuthenticated()">
         <li><a th:href="@{/articles/new}">New Article</a></li>
     </ul>
     

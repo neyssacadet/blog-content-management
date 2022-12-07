@@ -6,6 +6,7 @@
 package com.example.blogcontentmanagement.models;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import javax.persistence.Column;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
@@ -44,6 +47,14 @@ public class Article {
     private LocalDateTime articleCreated;
     
     private LocalDateTime articleUpdated;
+    
+    @ManyToMany
+    @JoinTable(name = "Hashtag",
+            joinColumns = {@JoinColumn(name = "id")},
+            inverseJoinColumns = {@JoinColumn(name = " hashtagId")})
+    private List<Hashtag> hashtags;
+    
+    
     
     @NotNull
     @ManyToOne
