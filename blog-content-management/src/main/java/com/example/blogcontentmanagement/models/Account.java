@@ -47,9 +47,9 @@ public class Account {
     
     
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "Account_authority",
-            joinColumns = {@JoinColumn(name = "account_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
+    @JoinTable(name = "AccountAuthority",
+            joinColumns = {@JoinColumn(name = "accountID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "authorityName", referencedColumnName = "Name")})
     private Set<Authority> authorities = new HashSet<>();
 
     @Override

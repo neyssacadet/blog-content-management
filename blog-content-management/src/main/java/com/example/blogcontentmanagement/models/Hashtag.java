@@ -18,7 +18,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -38,7 +37,7 @@ public class Hashtag {
     @Column(columnDefinition = "TEXT")
     private String hashtagName;
     
-    @NotNull
+    
     @ManyToMany(mappedBy = "hashtags")
     List<Article> articles;
     

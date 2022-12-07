@@ -21,7 +21,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -49,16 +48,16 @@ public class Article {
     private LocalDateTime articleUpdated;
     
     @ManyToMany
-    @JoinTable(name = "Hashtag",
-            joinColumns = {@JoinColumn(name = "id")},
-            inverseJoinColumns = {@JoinColumn(name = " hashtagId")})
+    @JoinTable(name = "ArticleHashtag",
+            joinColumns = {@JoinColumn(name = "articleID")},
+            inverseJoinColumns = {@JoinColumn(name = "hashtagID")})
     private List<Hashtag> hashtags;
     
     
     
-    @NotNull
+    
     @ManyToOne
-    @JoinColumn(name = "account", referencedColumnName = "id", nullable =false)
+    @JoinColumn(name = "accountID", referencedColumnName = "id", nullable =false)
     private Account account;
     
     @Override
