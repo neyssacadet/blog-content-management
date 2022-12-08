@@ -5,6 +5,7 @@
  */
 package com.example.blogcontentmanagement.models;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Column;
@@ -38,26 +39,48 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     
+    @Column
     private String title;
     
     @Column(columnDefinition = "TEXT")
     private String content;
-           
+    
+    @Column
     private LocalDateTime articleCreated;
     
+    @Column
     private LocalDateTime articleUpdated;
+    
+    @Column
+    LocalDate articleExpired;
+    
+    @Column
+    boolean approved;
     
     @ManyToMany
     @JoinTable(name = "ArticleHashtag",
-            joinColumns = {@JoinColumn(name = "articleID")},
-            inverseJoinColumns = {@JoinColumn(name = "hashtagID")})
+            joinColumns = {@JoinColumn(name = "articleId")},
+            inverseJoinColumns = {@JoinColumn(name = "hashtagId")})
     private List<Hashtag> hashtags;
     
+    public LocalDate getExpiryDate() {
+        return articleExpired;
+    }
+
+    public void setExpiryDate(LocalDate expiryDate) {
+        this.articleExpired = articleExpired;
+    }
     
-    
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean Approved) {
+        this.approved = Approved;
+    }
     
     @ManyToOne
-    @JoinColumn(name = "accountID", referencedColumnName = "id", nullable =false)
+    @JoinColumn(name = "Id", nullable =false)
     private Account account;
     
     @Override
