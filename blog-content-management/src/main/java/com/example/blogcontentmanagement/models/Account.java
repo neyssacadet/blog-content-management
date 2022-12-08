@@ -31,7 +31,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Account {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     private String email;
@@ -48,8 +48,8 @@ public class Account {
     
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "AccountAuthority",
-            joinColumns = {@JoinColumn(name = "accountID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "authorityName", referencedColumnName = "Name")})
+            joinColumns = {@JoinColumn(name = "Id")},
+            inverseJoinColumns = {@JoinColumn(name = "authorityName")})
     private Set<Authority> authorities = new HashSet<>();
 
     @Override

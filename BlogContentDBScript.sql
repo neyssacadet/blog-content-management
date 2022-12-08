@@ -3,65 +3,137 @@ CREATE DATABASE blogContentDBScript;
 
 USE blogContentDBScript;
 
-CREATE TABLE User (
-    	userID INT PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(50) NOT NULL,
+-- Account table
+CREATE TABLE Account (
+	Id INT PRIMARY KEY AUTO_INCREMENT,
     password VARCHAR(100) NOT NULL,
     firstName VARCHAR(50),
     lastName VARCHAR(50),
-    isEnabled BIT NOT NULL DEFAULT 0,
+    email VARCHAR(50)
+);
+
+-- Authority table
+CREATE TABLE Authority (
+	authorityName INT PRIMARY KEY AUTO_INCREMENT,
     email VARCHAR(50),
-    createdOn DATETIME NOT NULL DEFAULT NOW()
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(100) NOT NULL
 );
 
 
+-- Article
 CREATE TABLE Article (
-    	articleID INT PRIMARY KEY AUTO_INCREMENT,
+	Id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
-    body TEXT NOT NULL,
-    author VARCHAR(255) NOT NULL,
-    createdOn DATETIME NOT NULL DEFAULT NOW(),
-    postOn DATETIME NOT NULL,
-    expireOn DATETIME NOT NULL
+    content TEXT NOT NULL,
+    articleCreated DATETIME NOT NULL DEFAULT NOW(),
+    articleExpired DATETIME,
+    articleUpdated DATETIME,
+    approved Boolean default false
 );
 
-CREATE TABLE Tag (
-	tagID INT PRIMARY KEY AUTO_INCREMENT,
-    tagName VARCHAR(150) NOT NULL UNIQUE,
-    createdBy VARCHAR(255) NOT NULL,
-    addedOn VARCHAR(50) NOT NULL
+-- Article Body table 
+CREATE TABLE ArticleBody (
+	Id INT PRIMARY KEY,
+    body MEDIUMTEXT,
+    FOREIGN KEY (Id)
+		REFERENCES Article(Id) ON DELETE CASCADE
 );
 
-CREATE TABLE ArticleTag (
-  	articleID INT NOT NULL,
-  tagID INT NOT NULL,
-  PRIMARY KEY (articleID, tagID),
-  CONSTRAINT PK_ArticleTag
-    FOREIGN KEY (articleID)
-    REFERENCES Article(articleID),
-    FOREIGN KEY (tagID)
-    REFERENCES Tag(tagID)
+-- Hashtag
+CREATE TABLE Hashtag (
+	Id INT PRIMARY KEY AUTO_INCREMENT,
+    NAME VARCHAR(50) NOT NULL
+);
+
+-- Account and Authority connection table
+CREATE TABLE AccountAuthority (
+Id INT,
+    AuthorityName INT,
+    PRIMARY KEY  (Id, AuthorityName)
+    
 );
 
 
-CREATE TABLE Comments (
-	commentsID INT PRIMARY KEY AUTO_INCREMENT,
-    text TEXT NOT NULL,
-    user VARCHAR(255) NOT NULL,
-    userEmail VARCHAR(255) NOT NULL,
-    addedOn VARCHAR(50) NOT NULL,
-    articleID INT NOT NULL,
-    FOREIGN KEY (articleID) 
-    REFERENCES Article(articleID)
+-- Article and Hashtag connection table
+CREATE TABLE ArticleHashtag(
+	ArticleId int,
+    HashtagId int,
+    PRIMARY KEY  (ArticleId, HashtagId),
+    FOREIGN KEY (ArticleId)
+		REFERENCES Article(Id) ON DELETE CASCADE,
+	FOREIGN KEY (HashtagId)
+		REFERENCES Hashtag(Id) ON DELETE CASCADE
 );
 
-CREATE TABLE ArticleComments (
-  	articleID INT NOT NULL,
-  commentsID INT NOT NULL,
-  PRIMARY KEY (articleID, commentsID),
-  CONSTRAINT PK_ArticleComments
-    FOREIGN KEY (articleID)
-    REFERENCES Article(articleID),
-    FOREIGN KEY (commentsID)
-    REFERENCES Comments(commentsID)
+-- Static Page table
+CREATE TABLE StaticPage(
+	Id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255),
+    content LONGTEXT
 );
+
+INSERT INTO Article(Id, title, content, articleExpired, articleCreated, articleUpdated, approved)  
+VALUES 
+	(1, "title 1","content 1","2022-12-02","2022-12-01", null, true),
+    (2, "title 2","content 2",null,"2022-12-02","2022-12-03",true),
+    (3, "title 3","content 3",null,"2022-12-03",null, false),
+    (4,"title 4","content 4",null,"2022-12-04",null, true),
+    (5, "title 5","content 5",null,"2022-12-05",null, false),
+    (6, "title 6","content 6",null,"2022-12-06",null, false);
+    
+INSERT INTO Account(Id, password, firstName, lastName, email) 
+VALUES 
+	("1","password","user_first","user_last", "user.user@domain.com"),
+    ("2","password","admin_first","admin_last","admin.admin@domain.com"),
+    ("3","password","Maryia","Malakhava", "malakhava@yahoo.com"),
+    ("4","password","Everlyn","Leon", "everlyn.loza.leon@gmail.com"),
+    ("5","password","Neyssa","Cadet", "neyssacadet2304@gmail.com"),
+    ("6","password","Claude","Seide", "seidemarcelle@gmail.com");    
+    
+INSERT INTO ArticleBody(Id, body) 
+VALUES 
+	(1,"<p>test content 1</p>"),
+    (2,"<p>test content 2</p>"),
+    (3,"<p>test content 3</p>"),
+    (4,"<p>test content 4</p>"),
+    (5,"<p>test content 4</p>"),
+    (6,"<p><Strong>test content 5</Strong></p>");
+    
+
+INSERT INTO Hashtag(NAME) 
+VALUES 
+	("#Love"),
+    ("#Travel"),
+    ("#Food");
+    
+    
+    
+INSERT INTO ArticleHashtag(ArticleId, HashtagId) 
+VALUES 
+	(1,1),
+    (1,2),
+    (1,3),
+    (2,1),
+    (3,2),
+    (3,3),
+    (4,2),
+    (5,3),
+    (5,2),
+    (6,1),
+    (6,2);
+    
+INSERT INTO StaticPage(Title, Content) 
+VALUES 
+	("Disclaimer","<p>These are my personal thoughts, beliefs, and perspectives of the world. This is not representative of any
+                        employers, planning committees, clients, or any other associations tied with me and my name. Every person has 
+                        an opinion on something, and these are mine. We may end up having to agree to disagree, and I can guarantee you that
+                        not everyone will feel the way that I do.
+
+                        I may post happy things or sad things, run-of-the-mill things or controversial things. Whatever I post is most
+                        likely posted straight out of my mind, as I write stream of conscious style.
+
+                        If you have any questions for me personally, please feel free to email me at my first name at this domain.
+                        
+                        - Sarah 'sadukie' Dutkiewicz</p>");
+

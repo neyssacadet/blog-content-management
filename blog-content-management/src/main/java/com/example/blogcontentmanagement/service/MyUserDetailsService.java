@@ -39,7 +39,7 @@ public class MyUserDetailsService implements UserDetailsService {
         List<GrantedAuthority> grantedAuthorities = account
                 .getAuthorities()
                 .stream()
-                .map(authority -> new SimpleGrantedAuthority(authority.getName()))
+                .map(authority -> new SimpleGrantedAuthority(authority.getAuthorityName()))
                 .collect(Collectors.toList());
         
         return new User(account.getEmail(), account.getPassword(), grantedAuthorities);

@@ -27,12 +27,12 @@ public class Authority implements Serializable {
     
     @Id
     @Column(length =16)
-    private String name;
+    private String authorityName;
     
     @Override
     public String toString() {
         return "Authority{" +
-                "name='" + name + "'" +
+                "authorityName='" + authorityName + "'" +
                 "}";
     }
 }
