@@ -31,7 +31,7 @@ import javax.persistence.ManyToMany;
         
 public class Hashtag {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long hashtagId;
     
     @Column(columnDefinition = "TEXT")

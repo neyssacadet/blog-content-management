@@ -26,7 +26,6 @@ CREATE TABLE Article (
 	Id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
-    author VARCHAR(255) NOT NULL,
     articleCreated DATETIME NOT NULL DEFAULT NOW(),
     articleExpired DATETIME,
     articleUpdated DATETIME,
@@ -74,21 +73,23 @@ CREATE TABLE StaticPage(
     content LONGTEXT
 );
 
-INSERT INTO Article(title, content, author, articleExpired, articleCreated, articleUpdated, approved)  
+INSERT INTO Article(Id, title, content, articleExpired, articleCreated, articleUpdated, approved)  
 VALUES 
-	("title 1","content 1","user1","2022-12-02","2022-12-01", null, true),
-    ("title 2","content 2","user2",null,"2022-12-02","2022-12-03",true),
-    ("title 3","content 3","user3",null,"2022-12-03",null, false),
-    ("title 4","content 4","user4",null,"2022-12-04",null, true),
-    ("title 5","content 5","user5",null,"2022-12-05",null, false);
+	(1, "title 1","content 1","2022-12-02","2022-12-01", null, true),
+    (2, "title 2","content 2",null,"2022-12-02","2022-12-03",true),
+    (3, "title 3","content 3",null,"2022-12-03",null, false),
+    (4,"title 4","content 4",null,"2022-12-04",null, true),
+    (5, "title 5","content 5",null,"2022-12-05",null, false),
+    (6, "title 6","content 6",null,"2022-12-06",null, false);
     
 INSERT INTO Account(Id, password, firstName, lastName, email) 
 VALUES 
 	("1","password","user_first","user_last", "user.user@domain.com"),
-    ("2","password","admin_first","user_last","admin.admin@domain.com"),
-    ("3","password","user_","user_last", "user.user@dom,ain.com"),
-    ("4","password","user_first","user_last", "user.user@domain.com"),
-    ("5","password","user_first","user_last", "user.user@domain.com");    
+    ("2","password","admin_first","admin_last","admin.admin@domain.com"),
+    ("3","password","Maryia","Malakhava", "malakhava@yahoo.com"),
+    ("4","password","Everlyn","Leon", "everlyn.loza.leon@gmail.com"),
+    ("5","password","Neyssa","Cadet", "neyssacadet2304@gmail.com"),
+    ("6","password","Claude","Seide", "seidemarcelle@gmail.com");    
     
 INSERT INTO ArticleBody(Id, body) 
 VALUES 
@@ -96,7 +97,8 @@ VALUES
     (2,"<p>test content 2</p>"),
     (3,"<p>test content 3</p>"),
     (4,"<p>test content 4</p>"),
-    (5,"<p><Strong>test content 5</Strong></p>");
+    (5,"<p>test content 4</p>"),
+    (6,"<p><Strong>test content 5</Strong></p>");
     
 
 INSERT INTO Hashtag(NAME) 
@@ -117,7 +119,9 @@ VALUES
     (3,3),
     (4,2),
     (5,3),
-    (5,2);
+    (5,2),
+    (6,1),
+    (6,2);
     
 INSERT INTO StaticPage(Title, Content) 
 VALUES 
