@@ -11,11 +11,32 @@
         forced_root_block : "", selector: '#mytextarea'
       });
     </script>
-    <title>Blog :: Article</title>
+    <title>Article - Spring Boot Blog Application</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+
+* {
+    box-sizing: border-box;
+	font-family: 'DM Serif Display', serif;
+}
+
+body {
+  padding: 20px;
+  background: #f1f1f1;
+}
+
+h1{
+  padding: 30px;
+  font-size: 40px;
+  text-align: center;
+  background: white;
+  border-radius: 30px;
+  }
+</style>
 </head>
 <body>
 <div class="container">
-        
+    <h1>Spring Boot Blog Application</h1>
         <a th:href="@{/}">Home</a>
         <form action="#"
               th:action="@{'/articles/new'}"
