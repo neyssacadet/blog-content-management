@@ -100,6 +100,7 @@ public class ArticleController {
     public String saveNewArticle(@ModelAttribute Article article) {
         articleService.save(article);
         return "redirect:/articles/" + article.getId();
+        
     }
     
     

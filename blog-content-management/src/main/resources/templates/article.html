@@ -12,8 +12,8 @@
 </head>
 <body>
     <a th:href="@{/}">Home</a>
-    <div class="container">
-        <div class="card" style="width: 18rem;">
+    <div class="container" style="max-width: 500px;margin: auto;">
+        <div class="card mb-4 border-0" style="width: 20rem;">
         
         <div class="text-center m-4">
             <h2 th:text="${article.title}">Title</h2>
@@ -25,12 +25,14 @@
         </div>
         <div class="card-deck justify-content-center gap">
             <img class="card-img-top" th:src="${'/images/article-' + article.id }"  
-                 style="border-radius: 10px; max-width: 1080px;max-height: 500px;height:auto;width:auto;" 
+                 style="border-radius: 50% 20% / 10% 40%;" 
                  onerror="this.src='/images/placeholder.png';" >
         </div>
-        <ul sec:authorize="isAuthenticated()">
-            <li><a  th:href="@{'/articles/' + ${article.id} + '/edit'}" class="btn btn-primary btn-block">Edit</a></li>
-            <li><a  th:href="@{'/articles/' + ${article.id} + '/delete'}" class="btn btn-danger btn-block">Delete</a></li>
+            <br>
+            <br>
+        <ul style="list-style-type: none;" sec:authorize="isAuthenticated()">
+            <li style="list-style-type: none;"><a  th:href="@{'/articles/' + ${article.id} + '/edit'}" class="btn btn-primary btn-block">Edit</a></li>
+            <li style="list-style-type: none;"><a  th:href="@{'/articles/' + ${article.id} + '/delete'}" class="btn btn-danger btn-block">Delete</a></li>
         </ul>
         
       </div>  
