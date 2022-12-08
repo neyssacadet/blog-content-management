@@ -14,10 +14,10 @@ CREATE TABLE Account (
 
 -- Authority table
 CREATE TABLE Authority (
-	authorityName INT PRIMARY KEY AUTO_INCREMENT,
+	Id INT PRIMARY KEY AUTO_INCREMENT,
+    authorityName VARCHAR(50),
     email VARCHAR(50),
-    username VARCHAR(50) NOT NULL,
-    password VARCHAR(100) NOT NULL
+    password VARCHAR(50)
 );
 
 
@@ -73,14 +73,7 @@ CREATE TABLE StaticPage(
     content LONGTEXT
 );
 
-INSERT INTO Article(Id, title, content, articleExpired, articleCreated, articleUpdated, approved)  
-VALUES 
-	(1, "title 1","content 1","2022-12-02","2022-12-01", null, true),
-    (2, "title 2","content 2",null,"2022-12-02","2022-12-03",true),
-    (3, "title 3","content 3",null,"2022-12-03",null, false),
-    (4,"title 4","content 4",null,"2022-12-04",null, true),
-    (5, "title 5","content 5",null,"2022-12-05",null, false),
-    (6, "title 6","content 6",null,"2022-12-06",null, false);
+
     
 INSERT INTO Account(Id, password, firstName, lastName, email) 
 VALUES 
@@ -89,16 +82,9 @@ VALUES
     ("3","password","Maryia","Malakhava", "malakhava@yahoo.com"),
     ("4","password","Everlyn","Leon", "everlyn.loza.leon@gmail.com"),
     ("5","password","Neyssa","Cadet", "neyssacadet2304@gmail.com"),
-    ("6","password","Claude","Seide", "seidemarcelle@gmail.com");    
+    ("6","password","Claude","Seide", "seidemarcelle@gmail.com");     
     
-INSERT INTO ArticleBody(Id, body) 
-VALUES 
-	(1,"<p>test content 1</p>"),
-    (2,"<p>test content 2</p>"),
-    (3,"<p>test content 3</p>"),
-    (4,"<p>test content 4</p>"),
-    (5,"<p>test content 4</p>"),
-    (6,"<p><Strong>test content 5</Strong></p>");
+
     
 
 INSERT INTO Hashtag(NAME) 
@@ -109,20 +95,7 @@ VALUES
     
     
     
-INSERT INTO ArticleHashtag(ArticleId, HashtagId) 
-VALUES 
-	(1,1),
-    (1,2),
-    (1,3),
-    (2,1),
-    (3,2),
-    (3,3),
-    (4,2),
-    (5,3),
-    (5,2),
-    (6,1),
-    (6,2);
-    
+
 INSERT INTO StaticPage(Title, Content) 
 VALUES 
 	("Disclaimer","<p>These are my personal thoughts, beliefs, and perspectives of the world. This is not representative of any

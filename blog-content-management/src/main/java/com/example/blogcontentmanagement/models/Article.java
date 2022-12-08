@@ -57,6 +57,8 @@ public class Article {
     @Column
     boolean approved;
     
+  //  String hashTags;
+    
     @ManyToMany
     @JoinTable(name = "ArticleHashtag",
             joinColumns = {@JoinColumn(name = "articleId")},
@@ -71,13 +73,21 @@ public class Article {
         this.articleExpired = articleExpired;
     }
     
+/*    public List<Hashtag> getHashtags() {
+        return hashtags;
+    }
+
+    public void setHashtags(List<Hashtag> hashtags) {
+        this.hashtags = hashtags;
+    }
+    
     public boolean isApproved() {
         return approved;
     }
 
     public void setApproved(boolean Approved) {
         this.approved = Approved;
-    }
+    }*/
     
     @ManyToOne
     @JoinColumn(name = "Id", nullable =false)
@@ -88,6 +98,7 @@ public class Article {
         return "Article{" +
             "id=" + id +
             ", title='" + title + "'" +
+     //       ", hashTags='" + hashTags + "'" +   
             ", content='" + content + "'" +
             ", articleCreated='" + articleCreated + "'" +
             ", articleUpdated=" + articleUpdated +

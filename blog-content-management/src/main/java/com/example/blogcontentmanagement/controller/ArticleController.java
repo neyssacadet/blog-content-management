@@ -7,9 +7,15 @@ package com.example.blogcontentmanagement.controller;
 
 import com.example.blogcontentmanagement.models.Account;
 import com.example.blogcontentmanagement.models.Article;
+import com.example.blogcontentmanagement.models.Hashtag;
+import com.example.blogcontentmanagement.repositories.HashtagRepository;
 import com.example.blogcontentmanagement.service.AccountService;
 import com.example.blogcontentmanagement.service.ArticleService;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -25,6 +31,10 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @Controller
 public class ArticleController {
+    
+    @Autowired
+    private HashtagRepository hashtagRepository;
+    
     @Autowired
     private ArticleService articleService;
     
@@ -57,7 +67,35 @@ public class ArticleController {
     } else {
            return "404";
        }
-}
+    }
+    
+  /*  //Parse hashtags
+        List<String> parsedHashTags = parseHashtags(hashTags);
+        List<Hashtag> hashtagList = new ArrayList<>();
+        
+        for(String ht : parsedHashTags){
+            Hashtag hashtag = new Hashtag(); 
+            hashtag.setName(ht);
+            Hashtag fromDB = hashtagRepository.findByName(ht);
+            if(fromDB == null){
+                fromDB = hashtagRepository.save(hashtag);
+            }
+            hashtagList.add(fromDB);
+        }*/
+        
+        
+        
+  /*      public List<String> parseHashtags(String strHashTags){
+        List<String> hashTags = new ArrayList<>();
+        
+        Matcher matcher = Pattern.compile("(#[^#\\s]*)")
+                .matcher(strHashTags);
+        while (matcher.find()) {
+            hashTags.add(matcher.group());
+        }
+        return hashTags;
+    }*/
+    
     @PostMapping("/articles/new")
     public String saveNewArticle(@ModelAttribute Article article) {
         articleService.save(article);

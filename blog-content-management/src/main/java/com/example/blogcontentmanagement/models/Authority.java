@@ -29,6 +29,10 @@ public class Authority implements Serializable {
     @Column(length =16)
     private String authorityName;
     
+    private String password;
+    
+    
+    
     @Override
     public String toString() {
         return "Authority{" +

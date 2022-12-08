@@ -29,10 +29,17 @@
                 <label for="new-article-title">Title</label>
                 <input id="new-article-title" type="text" th:field="*{title}" placeholder="Title"/>
             </div>
+         <!--   <div>
+                <label for="new-article-hashtag">Hashtag</label>
+                <input id="new-article-hashtag" type="text" th:field="*{hashtag}" placeholder="Hashtag"/>
+            </div>-->
             <div>
                 <label for="new-article-content">Content</label>
                 <textarea id="mytextarea" type="text" th:field="*{content}"></textarea>
             </div>
+         <div>    
+            Add a Picture <input id="file" type="file" name="file" accept=".jpg,.jpeg, .png">
+        </div>
             <button type="submit">Publish Article</button>
         </form>
         
