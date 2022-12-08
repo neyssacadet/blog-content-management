@@ -5,16 +5,72 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Blog :: Home</title>
+    <title>Spring Boot Blog Application</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+
+* {
+    box-sizing: border-box;
+	font-family: 'DM Serif Display', serif;
+}
+
+body {
+  padding: 20px;
+  background: #f1f1f1;
+}
+
+h1{
+  padding: 30px;
+  font-size: 40px;
+  text-align: center;
+  background: white;
+  border-radius: 30px;
+  }
+
+.article {
+  float: left;
+  width: 100%;
+  background-color: white;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 30px;
+}
+
+ul{
+  float: left;
+  width: 25%;
+  padding-left: 20px;
+}
+
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+  margin-top: 20px;
+}
+
+.articles-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.articleTitle{
+
+}
+    </style>
 </head>
 <body>
 <div class="container">
     <h1>Spring Boot Blog Application</h1>
-    <hr />
     <ul sec:authorize="isAuthenticated()">
         <li><a th:href="@{/articles/new}">New Article</a></li>
     </ul>
-    
+
+    <ul sec:authorize="!isAuthenticated()">
+        <li><a th:href="@{/register}">Register</a></li>
+        <li><a th:href="@{/login}">Login</a></li>
+    </ul>
+
     <div class="articles-container">
         <div class="article" th:each="article : ${articles}">
             <h2><a th:href="@{'/articles/' + ${article.id}}" th:text="${article.title}">Title</a></h2>
@@ -25,12 +81,7 @@
             <br>
         </div>
     </div>
-    <hr />
-   
-    <ul sec:authorize="!isAuthenticated()">
-        <li><a th:href="@{/register}">Register</a></li>
-        <li><a th:href="@{/login}">Login</a></li>
-    </ul>
+
     <div sec:authorize="isAuthenticated()">
         <form action="#"
               th:action="@{/logout}"
@@ -40,6 +91,9 @@
             </div>
             <button type="submit">Logout</button>
         </form>
+    </div>
+    <div class="card">
+        <h3>Group 3: Cadet, Leon, Malakhava, Seide</h3>
     </div>
 
 </div>

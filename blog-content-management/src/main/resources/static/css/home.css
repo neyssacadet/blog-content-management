@@ -1,9 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
 
 * {
-    background-color: rgb(180, 216, 239);
+    background-color: red;
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;	
 	font-family: 'DM Serif Display', serif;
+}
+h1{
+text-align: center;
 }
