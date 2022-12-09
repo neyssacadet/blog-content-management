@@ -5,30 +5,54 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Blog :: Login</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <style>
+    <title>Login - Spring Boot Blog App</title>
+    <style>
         @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
 
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 	font-family: 'DM Serif Display', serif;
 }
 
+li, a, button {
+    font-weight: 500;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+header{
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 30px;
+background-color: black;
+}
+
+.h1{
+  font-size: 25px;
+  text-align: left;
+  color: white;
+  }
+
+.nav_links {
+    list-style: none;
+}
+
+.nav_links li {
+    display: inline-block;
+    padding: 0px 20px;
+}
+
 body {
-  padding: 20px;
   background: #f1f1f1;
 }
 
-h1{
-  padding: 30px;
-  font-size: 40px;
-  text-align: center;
-  background: white;
-  border-radius: 30px;
-  }
-
+h2{
+padding-top:20px;
+text-align:left;
+}
 
 form{
     box-sizing:border-box;
@@ -37,16 +61,15 @@ form{
   margin:5% auto;
   text-align:center;
   background-color: white;
-  border-radius: 30px;
+  border-radius: 10px;
 }
 
 button {
-    background-color: rgb(217, 61, 186);
-    padding: 14px 20px;
-    margin: 8px 0;
+background-color: rgb(217, 61, 186);
+    padding: 9px 25px;
     border: none;
+    border-radius: 10px;
     cursor: pointer;
-    width: 100%;
   }
 
   button:hover {
@@ -59,6 +82,7 @@ button {
     margin: 8px 0;
     display: inline-block;
     border: 1px solid #ccc;
+    border-radius: 10px;
     box-sizing: border-box;
   }
 
@@ -75,13 +99,34 @@ button {
 #email, #password{
     background-color: white;
 }
+main{
+width: 90vw;
+margin: 0 auto;
+padding: 30px 20px;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    text-align: center;
+    color: white;
+}
    </style>
 </head>
 <body>
 <div class="container">
-        <h1>Spring Boot Blog Application</h1>
-        <hr />
-        <a th:href="@{/}">Home</a>
+    <header>
+        <a class="h1" th:href="@{/}">Spring Boot Blog Application</a>
+        <nav>
+            <ul class = "nav_links" sec:authorize="!isAuthenticated()">
+                <li><a th:href="@{/register}">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
         <h2>Login</h2>
         <form action="#"
               th:action="@{/login}"
@@ -97,5 +142,11 @@ button {
             <button type="submit">Login!</button>
         </form>
     </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+    <p class="foot">Copyright &copy; 2022, GROUP THREE</p>
+</footer>
 </body>
 </html>

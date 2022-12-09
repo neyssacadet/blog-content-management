@@ -5,108 +5,185 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Blog :: Home</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <style>
+  
+    
+    <title>Spring Boot Blog Application</title>
+<style>
         @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
 
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 	font-family: 'DM Serif Display', serif;
 }
 
+li, a, button {
+    font-weight: 500;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+header{
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 30px;
+background-color: black;
+}
+
+.nav_links {
+    list-style: none;
+    color: white;
+}
+
+.nav_links li {
+    display: inline-block;
+    padding: 0px 20px;
+    color: white;
+}
+
 body {
-  padding: 20px;
   background: #f1f1f1;
 }
 
 h1{
-  padding: 30px;
-  font-size: 40px;
-  text-align: center;
-  background: white;
-  border-radius: 30px;
+  font-size: 25px;
+  text-align: left;
+  color: white;
   }
 
-
-
-
-
-  input[type=text], input[type=password] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-  }
-
-  form{
-    width: 300px;
-    padding: 50px;
-    position:absolute;
-    top:30%;
-    left:50%;
-    margin-top:-50px; /* this is half the height of your div*/
-    margin-left:-100px;
-    }
-
-#email, #password{
-    background-color: white;
+.h2{
+    font-size: 15px;
 }
-   </style>
+.article {
+  float: left;
+  width: 30%;
+  display: inline-block;
+  background-color: white;
+  padding: 20px;
+  margin-top: 20px;
+  margin: 20px;
+  border-radius: 10px;
+}
 
+main {
+width: 90vw;
+margin: 0 auto;
+padding: 30px 20px;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    text-align: center;
+    color: white;
+}
+
+.articles-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+button {
+background-color: rgb(217, 61, 186);
+    padding: 9px 25px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    opacity: 0.8;
+  }
+
+  .h2{
+  font-size: 30px;
+  color: rgb(75,0,130)
+  }
+
+  h5 {
+  font-size: 12px;
+  color: hsl(240, 75%, 25%);
+  }
+
+ .link:link {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.link:visited {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: rgb(217, 61, 186);
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+.link:active {
+  color: white;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+    </style>
 </head>
 <body>
 <div class="container">
-    <h1>Spring Boot Blog Application</h1>
-    <hr />
-    <ul sec:authorize="isAuthenticated()">
-        <li><a th:href="@{/articles/new}">New Article</a></li>
-    </ul>
-    
-    <div class="container" style="max-width: 500px;margin: auto;">
-        <div class="card mb-4 border-0" style="width: 20rem;">
-        <div class="article" th:each="article : ${articles}">
-            <h2><a th:href="@{'/articles/' + ${article.id}}" th:text="${article.title}">Title</a></h2>
-        <!--    <h5 th:text="${hashtag.hashtagName}">Hashtag</h5> -->
-        <div class="text-center m-4">
-            <h5 th:text="'Written by ' + ${article.account.firstName}">Account First Name</h5>
-            <h5 th:text="'Published at ' + ${article.articleCreated}">Created At</h5>
-            <h5 th:text="'Last Updated on ' + ${article.articleUpdated}">Updated on</h5>
-            <p th:text="${article.content}">body text</p>
-        </div>
-            <br>
-            <div class="card-deck justify-content-center gap">
-            <img class="card-img-top" th:src="${'/images/article-' + article.id }"  
-                 style="border-radius: 50% 20% / 10% 40%;" 
-                 onerror="this.src='/images/placeholder.png';" >
-        </div>
-        </div>
-    </div>
-    </div>
-    <hr />
-   
-    <nav class="navbar navbar-light" style="background-color: rgb(226, 122, 179); opacity: 0.8;">
-        <ul style="list-style-type: none; display:inline;" sec:authorize="!isAuthenticated()">
-        <li style="list-style-type: none; display:inline;"><a th:href="@{/register}">Register</a></li>
-        <li style="list-style-type: none; display:inline;"><a th:href="@{/login}">Login</a></li>
-    </ul>
-    <div sec:authorize="isAuthenticated()">
-        <form action="#"
-              th:action="@{/logout}"
-              method="POST">
-            <ul style="list-style-type: none; display:inline;">
-            <div>
-                <label>Hi, <span sec:authentication="name">Username</span></label>
-            </div>
-            <button type="submit">Logout</button>
+     <!-- HEADER -->
+    <header>
+        <h1>Spring Boot Blog Application</h1>
+        <nav>
+            <ul class="nav_links" sec:authorize="!isAuthenticated()">
+                <li><a class="link" th:href="@{/register}">Register</a></li>
+                <li><a class="link" th:href="@{/login}">Login</a></li>
             </ul>
-        </form>
-    </div>
-    </nav> 
-            
+            <ul class="nav_links"  sec:authorize="isAuthenticated()">
+                <li><a th:href="@{/articles/new}">Create A New Article</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- EACH ARTICLE -->
+    <main>
+        <div class="articles-container">
+            <div class="article" th:each="article : ${articles}">
+                <h2><a class="h2" th:href="@{'/articles/' + ${article.id}}" th:text="${article.title}">Title</a></h2>
+                <!--    <h5 th:text="${hashtag.hashtagName}">Hashtag</h5> -->
+                <p th:text="${article.content}">body text</p>
+                </hr>
+                <h5 th:text="'Written by ' + ${article.account.firstName}">Account First Name</h5>
+                <h5 th:text="'Published on ' + ${article.articleCreated}">Created At</h5>
+                <h5 th:text="'Last Updated on ' + ${article.articleUpdated}">Updated on</h5>
+
+                <br>
+            </div>
+        </div>
+        <!-- LOGOUT AND HELLO USER -->
+        <div sec:authorize="isAuthenticated()">
+            <form action="#"
+                  th:action="@{/logout}"
+                  method="POST">
+                <div>
+                    <label>Hi, <span sec:authentication="name">Username</span></label>
+                </div>
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p class="foot">Copyright &copy; 2022, GROUP THREE</p>
+    </footer>
 
 </div>
 
