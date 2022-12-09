@@ -33,7 +33,6 @@ background-color: black;
 .nav_links {
     list-style: none;
     color: white;
-    color: inherit;
 }
 
 .nav_links li {
@@ -102,6 +101,7 @@ background-color: rgb(217, 61, 186);
 
   .h2{
   font-size: 30px;
+  color: rgb(75,0,130)
   }
 
   h5 {
@@ -109,10 +109,29 @@ background-color: rgb(217, 61, 186);
   color: hsl(240, 75%, 25%);
   }
 
+ .link:link {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+}
 
+.link:visited {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+}
 
+.link:hover {
+  color: rgb(217, 61, 186);
+  background-color: transparent;
+  text-decoration: underline;
+}
 
-
+.link:active {
+  color: white;
+  background-color: transparent;
+  text-decoration: underline;
+}
 
     </style>
 </head>
@@ -123,10 +142,10 @@ background-color: rgb(217, 61, 186);
         <h1>Spring Boot Blog Application</h1>
         <nav>
             <ul class="nav_links" sec:authorize="!isAuthenticated()">
-                <li><a th:href="@{/register}">Register</a></li>
-                <li><a th:href="@{/login}">Login</a></li>
+                <li><a class="link" th:href="@{/register}">Register</a></li>
+                <li><a class="link" th:href="@{/login}">Login</a></li>
             </ul>
-            <ul class="nav_links" sec:authorize="isAuthenticated()">
+            <ul class="nav_links" class="link" sec:authorize="isAuthenticated()">
                 <li><a th:href="@{/articles/new}">Create A New Article</a></li>
             </ul>
         </nav>
