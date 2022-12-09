@@ -5,21 +5,24 @@ USE blogContentDBScript;
 
 -- Account table
 CREATE TABLE Account (
-	Id INT PRIMARY KEY AUTO_INCREMENT, 
+	Id INT, 
     password VARCHAR(100),
     firstName VARCHAR(50),
     lastName VARCHAR(50),
-    email VARCHAR(50),
-    enabled boolean default false
+    email VARCHAR(50) NOT NULL PRIMARY KEY,
+    enabled boolean not null default true
 );
 
 -- Authority table
 CREATE TABLE Authority (
-	Id INT PRIMARY KEY AUTO_INCREMENT,
-    authorityName VARCHAR(50),
+	Id INT,
+    authorityName VARCHAR(100),
     email VARCHAR(50),
-    password VARCHAR(100) 
+    password VARCHAR(100),
+    constraint fk_authority_account foreign key(email) references account(email)
 );
+
+create unique index ix_auth_email on authority (email,authorityName);
 
 /*-- Authority table
 CREATE TABLE Authority (
@@ -68,7 +71,7 @@ CREATE TABLE Hashtag (
     NAME VARCHAR(50) NOT NULL
 );
 
---- Account and Authority connection table
+-- Account and Authority connection table
 CREATE TABLE AccountAuthority (
 Id INT,
     AuthorityName INT,
@@ -95,20 +98,20 @@ CREATE TABLE StaticPage(
     content LONGTEXT
 );
 
-/*INSERT INTO Article(Id, title, content, articleExpired, articleCreated, articleUpdated, approved)  
+INSERT INTO Article(title, content, articleExpired, articleCreated, articleUpdated, approved)  
 VALUES 
-	(1, "title 1","content 1","2022-12-02","2022-12-01", null, true),
-    (2, "title 2","content 2",null,"2022-12-02","2022-12-03",true),
-    (3, "title 3","content 3",null,"2022-12-03",null, false),
-    (4,"title 4","content 4",null,"2022-12-04",null, true),
-    (5, "title 5","content 5",null,"2022-12-05",null, false),
-    (6, "title 6","content 6",null,"2022-12-06",null, false);   */
+	("title 1","content 1","2022-12-02","2022-12-01", null, true),
+    ("title 2","content 2",null,"2022-12-02","2022-12-03",true),
+    ("title 3","content 3",null,"2022-12-03",null, false),
+    ("title 4","content 4",null,"2022-12-04",null, true),
+    ("title 5","content 5",null,"2022-12-05",null, false),
+    ("title 6","content 6",null,"2022-12-06",null, false);   
 
     
 INSERT INTO Account(Id, password, firstName, lastName, email) 
 VALUES 
-	("1","password","user_first","user_last", "user.user@domain.com"),
-    ("2","password","admin_first","admin_last","admin.admin@domain.com"),
+	("1","password","user_first","user_last", "user.user@yahoo.com"),
+    ("2","password","admin_first","admin_last","admin.admin@yahoo.com"),
     ("3","password","Maryia","Malakhava", "malakhava@yahoo.com"),
     ("4","password","Everlyn","Leon", "everlyn.loza.leon@gmail.com"),
     ("5","password","Neyssa","Cadet", "neyssacadet2304@gmail.com"),
@@ -161,3 +164,13 @@ VALUES
                         
                         - Sarah 'sadukie' Dutkiewicz</p>");
 
+-- seed the database with 2 users
+INSERT INTO Account (Id, email, password, enabled) VALUES 
+('1','user.user@domain.com', 'password', true),
+('2','admin.admin@domain.com', 'password', true);
+
+-- create the authorities
+INSERT INTO authority (Id, email, authorityName) VALUES 
+('1','user.user@domain.com', 'ROLE_USER'),
+('2','admin.admin@domain.com', 'ROLE_USER'),
+('3', 'admin.admin@domain.com', 'ROLE_ADMIN');

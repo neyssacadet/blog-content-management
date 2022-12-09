@@ -14,8 +14,7 @@ CREATE TABLE Account (
 
 -- Authority table
 CREATE TABLE Authority (
-	Id INT PRIMARY KEY AUTO_INCREMENT,
-    authorityName VARCHAR(50),
+	authorityName INT PRIMARY KEY AUTO_INCREMENT,
     email VARCHAR(50),
     username VARCHAR(50) NOT NULL,
     password VARCHAR(100) NOT NULL
