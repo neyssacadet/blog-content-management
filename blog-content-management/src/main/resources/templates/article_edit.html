@@ -1,11 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Blog :: Update Article</title>
+    <title>Update Article - Spring Boot Blog App</title>
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
       tinymce.init({
@@ -17,20 +17,29 @@
 
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 	font-family: 'DM Serif Display', serif;
 }
 
-body {
-  padding: 20px;
-  background: #f1f1f1;
+li, a, button {
+    font-weight: 500;
+    font-size: 16px;
+    text-decoration: none;
 }
 
-h1{
-  padding: 30px;
-  font-size: 40px;
-  text-align: center;
-  background: white;
-  border-radius: 30px;
+header{
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 30px;
+background-color: black;
+}
+
+.h1{
+  font-size: 25px;
+  text-align: left;
+  color: white;
   }
 
   .article {
@@ -41,12 +50,45 @@ h1{
   margin-top: 20px;
   border-radius: 30px;
 }
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    text-align: center;
+    color: white;
+}
+
+button {
+background-color: rgb(217, 61, 186);
+    padding: 9px 25px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    opacity: 0.8;
+  }
+
+  main {
+width: 90vw;
+margin: 0 auto;
+padding: 30px 20px;
+}
   </style>
 </head>
 <body>
 <div class="container">
-    <h1>Spring Boot Blog Application</h1>
-        <a th:href="@{/}">Home</a>
+    <!-- HEADER -->
+    <header>
+        <a class="h1" th:href="@{/}">Spring Boot Blog Application</a>
+    </header>
+
+    <!-- MAIN/BODY -->
+    <main>
         <form action="#"
               th:action="@{'/articles/{id}'(id=${article.id})}"
               th:object="${article}"
@@ -74,5 +116,11 @@ h1{
         </form>
         
     </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+    <p class="foot">Copyright &copy; 2022, GROUP THREE</p>
+</footer>
 </body>
 </html>

@@ -6,27 +6,35 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Blog :: Article</title>
+    <title>Article - Spring Boot Blog App</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
 
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 	font-family: 'DM Serif Display', serif;
 }
 
 body {
-  padding: 20px;
   background: #f1f1f1;
 }
 
-h1{
-  padding: 30px;
-  font-size: 40px;
-  text-align: center;
-  background: white;
-  border-radius: 30px;
+header{
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 30px 10%;
+background-color: black;
+}
+
+.h1{
+  font-size: 25px;
+  text-align: left;
+  color: white;
   }
+
 
   .article {
   float: left;
@@ -36,16 +44,44 @@ h1{
   margin-top: 20px;
   border-radius: 30px;
 }
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+.h2{
+  font-size: 30px;
+  }
+
+  h5 {
+  font-size: 12px;
+  color: hsl(240, 75%, 25%);
+  }
+
+    main {
+width: 90vw;
+margin: 0 auto;
+padding: 30px 20px;
+}
   </style>
 </head>
 <body>
-<h1>Spring Boot Blog Application</h1>
-    <a th:href="@{/}">Home</a>
-    <div class="container">
+<header>
+    <a class="h1" th:href="@{/}">Spring Boot Blog Application</a>
+</header>
+
+<main>
+<div class="container">
         <div class="card" style="width: 18rem;">
         
         <div class="text-center m-4">
-            <h2 th:text="${article.title}">Title</h2>
+            <h2 class="h2" th:text="${article.title}">Title</h2>
         <!--    <h5 th:text="${hashtag.hashtagName}">Hashtag</h5> -->
             <h5 th:text="'Written by ' + ${article.account.firstName}">Account First Name</h5>
             <h5 th:text="'Created at ' + ${article.articleCreated}">Created At</h5>
@@ -64,6 +100,10 @@ h1{
         
       </div>  
     </div>
-
+</main>
+<!-- FOOTER -->
+<footer>
+    <p class="foot">Copyright &copy; 2022, GROUP THREE</p>
+</footer>
 </body>
 </html>
