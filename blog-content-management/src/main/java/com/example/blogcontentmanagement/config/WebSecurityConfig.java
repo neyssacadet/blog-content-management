@@ -5,37 +5,45 @@
  */
 package com.example.blogcontentmanagement.config;
 
-import org.springframework.context.annotation.Bean;
+import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
 
 /**
  *
  * @author 18437
  */
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled =true)
-public class WebSecurityConfig {
+//@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled =true)
+@Configuration
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
-    /* @Autowired
-    public void configureGlobalInMemory(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-            .inMemoryAuthentication()
-                .withUser("user.user@domain.com").password("{noop}password").roles("USER")
-                .and()
-                .withUser("admin.admin@domain.com").password("{noop}password").roles("ADMIN", "USER");
-    }*/
+    @Autowired
+    DataSource dataSource;
     
-    @Bean
-    public static PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    
+     auth
+        .jdbcAuthentication()
+        .dataSource(dataSource)
+        .usersByUsernameQuery("select email,password,enabled from account where email = ?")
+        .authoritiesByUsernameQuery("select email,authorityName from authority where email = ?");
+    }
+     
+     @Bean
+    public PasswordEncoder getPasswordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
     }
     
     private static final String[] WHITELIST = {
@@ -46,14 +54,20 @@ public class WebSecurityConfig {
             
     }; 
     
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+   /* @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {*/
+     @Override
+    protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
                 .antMatchers(WHITELIST).permitAll()
                 // permit everyone to view articles (method GET)
                 .antMatchers(HttpMethod.GET,"/articles/*").permitAll()
-                .anyRequest().authenticated();
+                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/articles/{id}/delete").hasRole("ADMIN")
+                .antMatchers("/").hasAnyRole()
+                .antMatchers("/").permitAll()
+                .antMatchers("/h2-console/**").permitAll();
         
         // login handling 
         http
@@ -77,6 +91,6 @@ public class WebSecurityConfig {
         http.csrf().disable();
         http.headers().frameOptions().disable();
         
-        return http.build();
+       
     }
 }

@@ -139,7 +139,7 @@ public class ArticleController {
     
 
     @GetMapping("/articles/{id}/delete")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public String deleteArticle(@PathVariable Long id) {
 
         // find article by id
