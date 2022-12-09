@@ -5,11 +5,12 @@ USE blogContentDBScript;
 
 -- Account table
 CREATE TABLE Account (
-	Id INT PRIMARY KEY AUTO_INCREMENT,
-    password VARCHAR(100) NOT NULL,
+	Id INT PRIMARY KEY AUTO_INCREMENT, 
+    password VARCHAR(100),
     firstName VARCHAR(50),
     lastName VARCHAR(50),
-    email VARCHAR(50)
+    email VARCHAR(50),
+    enabled boolean default false
 );
 
 -- Authority table
@@ -17,15 +18,36 @@ CREATE TABLE Authority (
 	Id INT PRIMARY KEY AUTO_INCREMENT,
     authorityName VARCHAR(50),
     email VARCHAR(50),
-    password VARCHAR(50)
+    password VARCHAR(100) 
 );
 
+/*-- Authority table
+CREATE TABLE Authority (
+	Id INT,
+    authorityName VARCHAR(100),
+    email VARCHAR(50),
+    password VARCHAR(50) not null,
+    constraint fk_authority_account foreign key (email) references account(email)
+);
+
+create unique index ix_auth_email on authority(email,authorityName);
+
+INSERT INTO Account (email, password, enabled)
+VALUES
+('user.user.@domain.com', 'password', true),
+('admin.admin.@domain.com', 'password', true);
+
+INSERT INTO Authority (email, authorityName)
+VALUES
+('user.user.@domain.com', 'ROLE_USER'),
+('admin.admin.@domain.com', 'ROLE_USER'),
+('admin.admin.@domain.com', 'ROLE_ADMIN');*/
 
 -- Article
 CREATE TABLE Article (
 	Id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
-    content TEXT NOT NULL,
+    content VARBINARY(8000) NOT NULL,
     articleCreated DATETIME NOT NULL DEFAULT NOW(),
     articleExpired DATETIME,
     articleUpdated DATETIME,
@@ -46,7 +68,7 @@ CREATE TABLE Hashtag (
     NAME VARCHAR(50) NOT NULL
 );
 
--- Account and Authority connection table
+--- Account and Authority connection table
 CREATE TABLE AccountAuthority (
 Id INT,
     AuthorityName INT,
@@ -73,6 +95,14 @@ CREATE TABLE StaticPage(
     content LONGTEXT
 );
 
+/*INSERT INTO Article(Id, title, content, articleExpired, articleCreated, articleUpdated, approved)  
+VALUES 
+	(1, "title 1","content 1","2022-12-02","2022-12-01", null, true),
+    (2, "title 2","content 2",null,"2022-12-02","2022-12-03",true),
+    (3, "title 3","content 3",null,"2022-12-03",null, false),
+    (4,"title 4","content 4",null,"2022-12-04",null, true),
+    (5, "title 5","content 5",null,"2022-12-05",null, false),
+    (6, "title 6","content 6",null,"2022-12-06",null, false);   */
 
     
 INSERT INTO Account(Id, password, firstName, lastName, email) 
@@ -83,9 +113,30 @@ VALUES
     ("4","password","Everlyn","Leon", "everlyn.loza.leon@gmail.com"),
     ("5","password","Neyssa","Cadet", "neyssacadet2304@gmail.com"),
     ("6","password","Claude","Seide", "seidemarcelle@gmail.com");     
-    
 
-    
+/*INSERT INTO ArticleBody(Id, body) 
+VALUES 
+	(1,"<p>test content 1</p>"),
+    (2,"<p>test content 2</p>"),
+    (3,"<p>test content 3</p>"),
+    (4,"<p>test content 4</p>"),
+    (5,"<p>test content 4</p>"),
+    (6,"<p><Strong>test content 5</Strong></p>");
+
+INSERT INTO ArticleHashtag(ArticleId, HashtagId) 
+VALUES 
+	(1,1),
+    (1,2),
+    (1,3),
+    (2,1),
+    (3,2),
+    (3,3),
+    (4,2),
+    (5,3),
+    (5,2),
+    (6,1),
+    (6,2);
+ */
 
 INSERT INTO Hashtag(NAME) 
 VALUES 

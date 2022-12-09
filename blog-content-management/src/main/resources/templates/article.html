@@ -19,9 +19,9 @@
             <h2 th:text="${article.title}">Title</h2>
         <!--    <h5 th:text="${hashtag.hashtagName}">Hashtag</h5> -->
             <h5 th:text="'Written by ' + ${article.account.firstName}">Account First Name</h5>
-            <h5 th:text="'Created at ' + ${article.articleCreated}">Created At</h5>
-            <h5 th:text="'Last Updated on ' + ${article.articleUpdated}">Updated on</h5>
-            <p class="card-text" th:text="${article.content}">body text</p>
+            <p style="font-size: 15px;" th:text="'Created at ' + ${article.articleCreated}">Created At</p>
+            <p style="font-size: 15px;" th:text="'Last Updated on ' + ${article.articleUpdated}">Updated on</p>
+            <p style="font-size: 20px;"class="card-text" th:text="${article.content}">body text</p>
         </div>
         <div class="card-deck justify-content-center gap">
             <img class="card-img-top" th:src="${'/images/article-' + article.id }"  
