@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -62,12 +62,79 @@
           content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
       });
     </script>
-    <title>Blog :: Article</title>
+    <title>Create Article - Spring Boot Blog Application</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+	font-family: 'DM Serif Display', serif;
+}
+
+li, a, button {
+    font-weight: 500;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+header{
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 30px;
+background-color: black;
+}
+
+
+body {
+  background: #f1f1f1;
+}
+
+button {
+background-color: rgb(217, 61, 186);
+    padding: 9px 25px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    opacity: 0.8;
+  }
+
+  .h1{
+  font-size: 25px;
+  color: white;
+  }
+
+  h2{
+  text-align:center;
+  }
+  footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    text-align: center;
+    color: white;
+}
+main {
+width: 90vw;
+margin: 0 auto;
+padding: 30px 20px;
+}
+</style>
 </head>
 <body>
 <div class="container">
-        
-        <a th:href="@{/}">Home</a>
+
+        <header>
+            <a class ="h1" th:href="@{/}">Spring Boot Blog Application</a>
+        </header>
+
+    <main>
         <form action="#"
               th:action="@{'/articles/new'}"
               th:object="${article}"
@@ -75,7 +142,7 @@
               
             <input type="hidden" th:field="*{account}" />
             <input type="hidden" th:field="*{articleCreated}" />
-            <h2>Write new Article</h2>
+            <h2>Write A New Article</h2>
             <div>
                 <label for="new-article-title">Title</label>
                 <input id="new-article-title" type="text" th:field="*{title}" placeholder="Title"/>
@@ -95,5 +162,10 @@
         </form>
         
     </div>
+</main>
+<!-- FOOTER -->
+<footer>
+    <p class="foot">Copyright &copy; 2022, GROUP THREE</p>
+</footer>
 </body>
 </html>

@@ -5,13 +5,110 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Blog :: Register</title>
+    <title>Register - Spring Boot Blog Application</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+	font-family: 'DM Serif Display', serif;
+}
+
+body {
+  background: #f1f1f1;
+}
+
+header{
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 30px 10%;
+background-color: black;
+}
+
+.h1{
+  font-size: 25px;
+  text-align: left;
+  color: white;
+  }
+
+
+
+form{
+    box-sizing:border-box;
+  padding-top:15px;
+	padding-bottom:10%;
+  margin:5% auto;
+  text-align:center;
+  background-color: white;
+  border-radius: 10px;
+}
+
+button {
+    background-color: rgb(217, 61, 186);
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  button:hover {
+    opacity: 0.8;
+  }
+
+  input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 10px;
+  }
+
+  form{
+    width: 300px;
+    padding: 50px;
+    position:absolute;
+    top:30%;
+    left:50%;
+    margin-top:-50px; /* this is half the height of your div*/
+    margin-left:-100px;
+    }
+
+#email, #password{
+    background-color: white;
+}
+
+main{
+width: 90vw;
+margin: 0 auto;
+padding: 30px 20px;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+   </style>
 </head>
+
 <body>
     <div class="container">
-        <h1>Spring Boot Blog Application</h1>
-        <hr />
-        <a th:href="@{/}">Home</a>
+        <header>
+        <a class="h1" th:href="@{/}">Spring Boot Blog Application</a>
+        </header>
+        <!--MAIN/BODY -->
+        <main>
         <h2>Register New Account</h2>
         <form action="#"
               th:action="@{/register}"
@@ -36,6 +133,10 @@
             <button type="submit">Register!</button>
         </form>
     </div>
-
+    </main>
+    <!-- FOOTER -->
+    <footer>
+        <p class="foot">Copyright &copy; 2022, GROUP THREE</p>
+    </footer>
 </body>
 </html>
