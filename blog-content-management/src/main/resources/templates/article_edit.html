@@ -64,9 +64,6 @@
     });
 
     </script>
-    <div class= "post-image">
-      <img [src]= "post. imagePath" [alt]= "post. title">
-      </div>
 </head>
 <body>
 <div class="container">
@@ -92,11 +89,12 @@
                 <label for="new-article-content">Content</label>
                 <textarea id="mytextarea" type="text" th:field="*{content}"></textarea>
             </div>
-         <div>    
+         <!-- <div>    
             Add a Picture <input id="file" type="file" name="file" accept=".jpg,.jpeg, .png">
-        </div>
+        </div> -->
             <button type="submit">Publish Article</button>
         </form>
+      
         
     </div>
 </body>
